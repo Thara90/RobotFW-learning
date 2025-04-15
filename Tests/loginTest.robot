@@ -1,23 +1,18 @@
 *** Settings ***
 Documentation       This is basic info about whole test suite
-Library             Browser     timeout=0:00:10
+Resource            ../Resources/Pages/loginPage.robot
+Resource            ../Resources/Pages/common.robot
+
+Suite Setup     common.Open the browser
  #robot -d Results Tests/loginTest.robot
 
 *** Variables ***
-${browser}      chromium
-${url}          https://practicesoftwaretesting.com/auth/login
 
 *** Test Cases ***
-Register a new user
+
+Suceccfull login
     [Documentation]     This is some basic infor about test
     [Tags]              Smoke
+    loginPage.Click Sign In
+    loginPage.Login to system
 
-    #open the browser
-    Log                         Starting the test case
-    New Browser                 ${browser}    headless=${False}
-    New Page                    ${url}
-
-    Fill Text               [data-test="email"]            customer@practicesoftwaretesting.com
-    Fill Text               [data-test="password"]         welcome01
-    Click                   [data-test="login-submit"]
-    Wait For Condition      Url                             should end with    /account
