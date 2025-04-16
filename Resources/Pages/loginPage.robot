@@ -2,14 +2,18 @@
 Library             Browser     timeout=0:00:10
 
 *** Variables ***
+${btnSignIn}        [data-test="nav-sign-in"]
+${txtEmail}         [data-test="email"]
+${txtPassword}      [data-test="password"]
+${btnLogin}         [data-test="login-submit"]
 
 *** Keywords ***
 
 Click Sign In
-    Click                   [data-test="nav-sign-in"]
+    Click                   ${btnSignIn}
 
 Login to system
-    Fill Text               [data-test="email"]                 customer@practicesoftwaretesting.com
-    Fill Text               [data-test="password"]              welcome01
-    Click                   [data-test="login-submit"]
+    Fill Text               ${txtEmail}                 customer@practicesoftwaretesting.com
+    Fill Text               ${txtPassword}              welcome01
+    Click                   ${btnLogin}
     Wait For Condition      Url                                 should end with    /account
