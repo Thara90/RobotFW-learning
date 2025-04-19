@@ -7,7 +7,7 @@ Suite Setup     common.Open the browser
  #robot -d Results Tests/registerTest.robot
 
 *** Test Cases ***
-Register a new user verify login
+Register a new user and verify login
     [Documentation]     This is some basic infor about test
     [Tags]              Smoke
     registerPage.Load registration form

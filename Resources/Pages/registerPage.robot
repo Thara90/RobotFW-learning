@@ -1,5 +1,6 @@
 *** Settings ***
-Library             Browser     timeout=0:00:10
+Library             Browser     timeout=0:00:20
+Resource            helperBase.robot
 
 *** Variables ***
 ${linkRegister}         [data-test="register-link"]
@@ -23,17 +24,20 @@ Load registration form
 
 
 Fill registration form
-    Fill Text           ${txtFirstName}            Thara
-    Fill Text           ${txtLastName}             Perera
-    Fill Text           ${txtDOB}                   1990-12-09
-    Fill Text           ${txtStreet}                Victoria
-    Fill Text           ${txtPostalCode}           100200
-    Fill Text           ${txtState}                 Western
-    Fill Text           ${txtCity}                  London
-    Select Options By   ${ddCountry}               value                       GB
-    Fill Text           ${txtPhoneNum}                 0771189740
-    Fill Text           ${txtEmail}                 testRW@mailinator.com
-    Fill Text           ${txtPassword}              Nexus@19901209
+    # Returned data from Make random registration data
+    ${firstName}    ${lastName}    ${dateOfBirth}    ${street}    ${postalCode}    ${city}    ${state}    ${countryCode}    ${phoneNum}    ${email}    ${password}=    Make random registration data
+
+    Fill Text           ${txtFirstName}            ${firstName}
+    Fill Text           ${txtLastName}             ${lastName}
+    Fill Text           ${txtDOB}                  ${dateOfBirth}
+    Fill Text           ${txtStreet}               ${street}
+    Fill Text           ${txtPostalCode}           ${postalCode}
+    Fill Text           ${txtState}                ${state}
+    Fill Text           ${txtCity}                 ${city}
+    Select Options By   ${ddCountry}               value                   ${countryCode}
+    Fill Text           ${txtPhoneNum}             ${phoneNum}
+    Fill Text           ${txtEmail}                ${email}
+    Fill Text           ${txtPassword}             ${password}
 
 Submit registration form
     Promise To          Wait For Response                   matcher=**/users/register
