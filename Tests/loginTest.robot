@@ -10,9 +10,9 @@ Suite Setup     common.Open the browser
 
 *** Test Cases ***
 
-Suceccfull login
+Successful login
     [Documentation]     This is some basic infor about test
     [Tags]              Smoke
     loginPage.Click Sign In
-    loginPage.Login to system
+    loginPage.Login to system   customer@practicesoftwaretesting.com    welcome01
 

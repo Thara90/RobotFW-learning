@@ -38,6 +38,7 @@ Fill registration form
     Fill Text           ${txtPhoneNum}             ${phoneNum}
     Fill Text           ${txtEmail}                ${email}
     Fill Text           ${txtPassword}             ${password}
+    RETURN    ${email}    ${password}
 
 Submit registration form
     Promise To          Wait For Response                   matcher=**/users/register
