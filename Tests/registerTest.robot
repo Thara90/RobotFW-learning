@@ -12,7 +12,7 @@ Register a new user and verify login
     [Documentation]     This is some basic infor about test
     [Tags]              Smoke
     registerPage.Load registration form
-    ${userDetails}     registerPage.Fill registration form
+    ${email}    ${password}=     registerPage.Fill registration form
     registerPage.Submit registration form
-    loginPage.Login to system
+    loginPage.Login to system   ${email}    ${password}
 
