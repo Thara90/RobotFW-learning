@@ -22,5 +22,9 @@ Search product
 
 Assert valid search result
     [Arguments]    ${productName}
-    Get Text                        ${lblProductName}         should be   ${productName}
+    Get Text                     ${lblProductName}       should be          ${productName}
 
+Select product
+    Click                        ${lblProductName}
+    ${url}=    Get Url
+    Should Match Regexp    ${url}    .*/product/[A-Z0-9]+$

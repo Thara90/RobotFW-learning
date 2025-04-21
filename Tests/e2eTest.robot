@@ -2,6 +2,7 @@
 Documentation       This is basic info about whole test suite
 Resource            ../Resources/Pages/loginPage.robot
 Resource            ../Resources/Pages/homePage.robot
+Resource            ../Resources/Pages/productDetailsPage.robot
 Resource            ../Resources/Pages/common.robot
 
 Test Setup      Setup Browser And Login
@@ -14,6 +15,8 @@ Check out flow verification
     homePage.clickHome
     homePage.Search product    Thor Hammer
     homePage.Assert valid search result    Thor Hammer
+    homePage.Select product
+    productDetailsPage.Add item to cart
 
 *** Keywords ***
 Setup Browser And Login
