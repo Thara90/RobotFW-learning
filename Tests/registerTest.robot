@@ -16,14 +16,14 @@ Register a new user and verify login
     registerPage.Load registration form
     ${email}    ${password}=     registerPage.Fill registration form
     registerPage.Submit registration form
-    loginPage.Login to system   ${email}    ${password}     user
+    loginPage.Valid login   ${email}    ${password}     user
     Set Global Variable    ${email}
     Set Global Variable    ${password}
     loginPage.Logout
 
 *** Keywords ***
 Delete Created User
-    loginPage.Login to system   admin@practicesoftwaretesting.com    welcome01    admin
+    loginPage.Valid login   admin@practicesoftwaretesting.com    welcome01    admin
     usersPage.Load users
     usersPage.Delete users    ${email}
 

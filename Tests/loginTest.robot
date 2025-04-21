@@ -20,9 +20,9 @@ Login with valid credentials
 Login with invalid username
     [Documentation]     login with invalid username
     loginPage.Click Sign In
-    loginPage.Invalid login    test@practicesoftwaretesting.com    1234    user
+    loginPage.Invalid login    test@practicesoftwaretesting.com    welcome01    user
 
 Login with invalid password
-    [Documentation]     login with invalid username
+    [Documentation]     login with invalid password
     loginPage.Click Sign In
     loginPage.Invalid login    customer2@practicesoftwaretesting.com    1234    user
