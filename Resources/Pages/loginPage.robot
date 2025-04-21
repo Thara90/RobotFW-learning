@@ -15,11 +15,18 @@ Click Sign In
     Click                   ${btnSignIn}
 
 Login to system
-    [Arguments]    ${username}    ${password}
+    [Arguments]    ${username}    ${password}    ${role}
     Fill Text               ${txtEmail}                 ${username}
     Fill Text               ${txtPassword}              ${password}
     Click                   ${btnLogin}
-    Wait For Condition      Url                                 should end with    /account
+    IF  $role=="admin"
+        ${expectedUrl}=         Set Variable    /admin/dashboard
+    ELSE IF  $role == "user"
+        ${expectedUrl}=         Set Variable    /account
+    ELSE
+       Log  fail
+    END
+    Wait For Condition      Url    should end with    ${expectedUrl}
 
 Logout
         Click                   ${ddNavigationMenu}
