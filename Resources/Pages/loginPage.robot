@@ -34,10 +34,10 @@ Valid login
     Wait For Condition      Url    should end with    ${expectedUrl}
 
 Invalid login
-    [Arguments]                     ${username}    ${password}    ${role}
-    Fill Login Form         ${username}    ${password}
-    Wait For Elements State         ${lblLoginErrorMessage}         visible
-    Get Text                        ${lblLoginErrorMessage}         should be   Invalid email or password
+    [Arguments]                             ${username}    ${password}    ${role}
+    Fill Login Form                         ${username}    ${password}
+    Run Keyword And Continue On Failure     Wait For Elements State         ${lblLoginErrorMessage}         visible
+    Run Keyword And Continue On Failure     Get Text                        ${lblLoginErrorMessage}         should be   Invalid email or password
 
 Logout
         Click                   ${ddNavigationMenu}
