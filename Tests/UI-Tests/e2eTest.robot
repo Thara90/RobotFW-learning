@@ -1,12 +1,12 @@
 *** Settings ***
 Documentation       This is basic info about whole test suite
-Resource            ../Resources/Pages/loginPage.robot
-Resource            ../Resources/Pages/homePage.robot
-Resource            ../Resources/Pages/productDetailsPage.robot
-Resource            ../Resources/Pages/common.robot
+Resource            ../../Resources/Pages/loginPage.robot
+Resource            ../../Resources/Pages/homePage.robot
+Resource            ../../Resources/Pages/productDetailsPage.robot
+Resource            ../../Resources/Pages/common.robot
 
 Test Setup      Setup Browser And Login
- #robot -d Results Tests/e2eTest.robot
+ #robot -d Results Tests/UI-Tests/e2eTest.robot
 
 *** Test Cases ***
 Check out flow verification

@@ -1,11 +1,11 @@
 *** Settings ***
 Documentation       This is basic info about whole test suite
-Resource            ../Resources/Pages/loginPage.robot
-Resource            ../Resources/Pages/common.robot
+Resource            ../../Resources/Pages/loginPage.robot
+Resource            ../../Resources/Pages/common.robot
 
 Test Setup         common.Open the browser
 Test Teardown      Close Browser    ALL
- #robot -d Results Tests/loginTest.robot
+ #robot -d Results Tests/UI-Tests/loginTest.robot
 
 *** Variables ***
 
