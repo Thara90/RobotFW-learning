@@ -12,19 +12,19 @@ ${lblProductName}               [data-test="product-name"]
 *** Keywords ***
 
 Click Home
-    Click                       ${linkHome}
-    Wait For Elements State     ${locatorProductCard}    visible
+    Click                                   ${linkHome}
+    Run Keyword And Continue On Failure     Wait For Elements State     ${locatorProductCard}    visible
 
 Search product
     [Arguments]    ${productName}
-    Fill Text                   ${txtSearch}             ${productName}
-    Click                       ${btnSearch}
+    Fill Text                               ${txtSearch}             ${productName}
+    Click                                   ${btnSearch}
 
 Assert valid search result
     [Arguments]    ${productName}
-    Get Text                     ${lblProductName}       should be          ${productName}
+    Get Text                                ${lblProductName}       should be          ${productName}
 
 Select product
-    Click                        ${lblProductName}
+    Click                                   ${lblProductName}
     ${url}=    Get Url
-    Should Match Regexp    ${url}    .*/product/[A-Z0-9]+$
+    Run Keyword And Continue On Failure     Should Match Regexp    ${url}    .*/product/[A-Z0-9]+$

@@ -8,5 +8,5 @@ ${addToCartMessage}             //div[@aria-label="Product added to shopping car
 *** Keywords ***
 
 Add item to cart
-    Click                       ${btnAddToCart}
-    Wait For Elements State     ${addToCartMessage}    visible
+    Click                                       ${btnAddToCart}
+    Run Keyword And Continue On Failure         Wait For Elements State     ${addToCartMessage}    visible

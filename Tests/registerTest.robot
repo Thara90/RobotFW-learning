@@ -17,8 +17,8 @@ Register a new user and verify login
     ${email}    ${password}=     registerPage.Fill registration form
     registerPage.Submit registration form
     loginPage.Valid login   ${email}    ${password}     user
-    Set Global Variable    ${email}
-    Set Global Variable    ${password}
+    Set Suite Variable    ${email}
+    Set Suite Variable    ${password}
     loginPage.Logout
 
 *** Keywords ***
