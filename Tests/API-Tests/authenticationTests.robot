@@ -8,7 +8,9 @@ Suite Setup         commonAPI.Create API Session
 *** Test Cases ***
 Log In with valid credentials
     ${resp}=     authentication.Authenticate user    customer2@practicesoftwaretesting.com    welcome01
-    Should Be Equal As Strings                       ${resp.status_code}                      200
+    Run Keyword And Continue On Failure              Should Be Equal As Strings               ${resp.status_code}                      200
+    ${json_data}    Set Variable                     ${resp.json()}
+    Run Keyword And Continue On Failure              Should Be Equal As Strings               ${json_data['token_type']}               bearer
 
 Log In with invalid credentials
     ${resp}=     authentication.Authenticate user    customer2@practicesoftwaretesting.com    incorrectPwd
