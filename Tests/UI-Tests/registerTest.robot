@@ -3,9 +3,9 @@ Documentation       This is basic info about whole test suite
 Resource            ../../Resources/Pages/registerPage.robot
 Resource            ../../Resources/Pages/loginPage.robot
 Resource            ../../Resources/Pages/usersPage.robot
-Resource            ../../Resources/Pages/common.robot
+Resource            ../../Resources/Pages/commonUI.robot
 
-Test Setup      common.Open the browser
+Test Setup      commonUI.Open the browser
 Test Teardown   Delete Created User
  #robot -d Results Tests/UI-Tests/registerTest.robot
 
