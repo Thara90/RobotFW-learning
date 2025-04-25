@@ -15,7 +15,12 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
-      
+
+    - name: Install Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 22
+
     - name: Set up Python
       uses: actions/setup-python@v3
       with:
@@ -25,16 +30,17 @@ jobs:
         python -m pip install --upgrade pip
           # Install additional dependencies if needed
           pip install -r requirements.txt
-          
-    - name: Install Node
-      uses: actions/setup-node@v3
-      with:
-        node-version: 22
-        
+
     - name: Install browser dependencies
       run: |
-        rfbrowser init  # Installs Playwright browsers for robotframework-browser
+        rfbrowser init
 
     - name: Run Robot Framework tests
       run: |
         robot -d Results Tests/UI-Tests/e2eTest.robot
+
+    - name: Upload Robot Framework reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: robot-results
+        path: Results/
