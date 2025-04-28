@@ -11,7 +11,7 @@ ${validPageNumber}      1
 
 *** Test Cases ***
 Log In with valid credentials
-    ${resp}=            authentication.Authenticate user    customer2@practicesoftwaretesting.com    welcome01
+    ${resp}=            authentication.POST authenticate   customer2@practicesoftwaretesting.com    welcome01
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${resp.status_code}                      200
     ${json_data}        Set Variable                 ${resp.json()}
     ${access_token}     Set Variable                 ${json_data['access_token']}
@@ -19,7 +19,7 @@ Log In with valid credentials
 
 *** Test Cases ***
 Get products with valid page id
-    ${resp}=            products.Product details     ${validPageNumber}
+    ${resp}=            products.GET products    ${validPageNumber}
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${resp.status_code}                       200
     ${json_data}        Set Variable                 ${resp.json()}
     ${product_name}=    Set Variable                 ${json_data}[data][0][name]

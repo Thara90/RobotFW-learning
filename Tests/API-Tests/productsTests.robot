@@ -11,7 +11,7 @@ ${invalidPageNumber}    1000
 
 *** Test Cases ***
 Get products with valid page id
-    ${resp}=        products.Product details         ${validPageNumber}
+    ${resp}=        products.GET products        ${validPageNumber}
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${resp.status_code}                       200
     ${json_data}    Set Variable                     ${resp.json()}
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${json_data['current_page']}              ${validPageNumber}
@@ -27,7 +27,7 @@ Get products with valid page id
     END
 
 Get products with invalid page id
-    ${resp}=        products.Product details         ${invalidPageNumber}
+    ${resp}=        products.GET products         ${invalidPageNumber}
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${resp.status_code}                       200
     ${json_data}    Set Variable                     ${resp.json()}
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${json_data['current_page']}              ${invalidPageNumber}
