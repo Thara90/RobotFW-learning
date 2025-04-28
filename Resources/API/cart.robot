@@ -3,7 +3,13 @@ Library         RequestsLibrary
 
 *** Keywords ***
 POST create cart
-    [Arguments]     ${pageNumber}
-    ${resp}=        GET On Session     mainSession         /products           params=page=${pageNumber}      expected_status=any
+    ${resp}=        POST On Session     mainSession                  /carts                expected_status=any
+    Log             ${resp.content}
+    RETURN          ${resp}
+
+POST add to cart
+    [Arguments]     ${cartId}           ${productId}                 ${quantity}
+    &{payload}=     Create dictionary   product_id=${productId}      quantity=${quantity}
+    ${resp}=        POST On Session     mainSession                  /carts/${cartId}       json=${payload}       expected_status=any
     Log             ${resp.content}
     RETURN          ${resp}

@@ -2,12 +2,14 @@
 Resource            ../../Resources/API/commonAPI.robot
 Resource            ../../Resources/API/authentication.robot
 Resource            ../../Resources/API/products.robot
+Resource            ../../Resources/API/cart.robot
 
 Suite Setup         commonAPI.Create API Session
  #robot -d Results Tests/API-Tests/e2eTest.robot
 
 *** Variables ***
 ${validPageNumber}      1
+${productQuantity}      1
 
 *** Test Cases ***
 Log In with valid credentials
@@ -17,8 +19,7 @@ Log In with valid credentials
     ${access_token}     Set Variable                 ${json_data['access_token']}
     Set Suite Variable  ${access_token}
 
-*** Test Cases ***
-Get products with valid page id
+Select a product
     ${resp}=            products.GET products    ${validPageNumber}
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${resp.status_code}                       200
     ${json_data}        Set Variable                 ${resp.json()}
@@ -28,3 +29,16 @@ Get products with valid page id
     Set Suite Variable  ${product_name}
     Set Suite Variable  ${product_id}
     Set Suite Variable  ${product_price}
+
+Create cart ID
+    ${resp}=            cart.POST create cart
+    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}     201
+    ${json_data}        Set Variable                 ${resp.json()}
+    ${cart_id}          Set Variable                 ${json_data['id']}
+    Set Suite Variable  ${cart_id}
+
+Add to cart
+    ${resp}=            cart.POST add to cart         ${cart_id}                                          ${product_id}           ${productQuantity}
+    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}     200
+    ${json_data}        Set Variable                 ${resp.json()}
+    Run Keyword And Continue On Failure              Should Be Equal As Strings               ${json_data['result']}               item added or updated
