@@ -1,14 +1,13 @@
 *** Settings ***
 Library         RequestsLibrary
 Library         JSONLibrary
+Library         OperatingSystem
 
 *** Keywords ***
 POST payment
     [Arguments]     ${payment_method}
-    ${file_name}=   Set Variable    ${payment_method}.json
-    #${json_string}= Get File        payloads/${file_name}
-    #${payload}=     Evaluate        json.loads("""${json_string}""")    json
-    &{payload}=     Create dictionary
-    ${resp}=        POST On Session     mainSession                  /payment/check       json=${payload}       expected_status=any
+    ${file_name}=   Set Variable                ${payment_method}.json
+    ${payload}=     Get File                    Resources/API/${file_name}
+    ${resp}=        POST On Session             mainSession                  /payment/check       json=${payload}       expected_status=any
     Log             ${resp.content}
     RETURN          ${resp}
