@@ -45,8 +45,9 @@ Add to cart
     ${json_data}        Set Variable                 ${resp.json()}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['result']}      item added or updated
 
-Check out with a payment method
-    ${resp}=            payment.POST payment         ${payment_method}                          6
+Check out with a buy-no-pay-later payment method
+    ${installments}=    Create Dictionary            monthly_installments=3
+    ${resp}=            payment.POST payment         ${payment_method}                          ${installments}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
     ${json_data}        Set Variable                 ${resp.json()}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['message']}     Payment was successful
