@@ -6,7 +6,7 @@ Resource            ../../Resources/API/cart.robot
 Resource            ../../Resources/API/payment.robot
 
 Suite Setup         commonAPI.Create API Session
- #robot -d Results Tests/API-Tests/e2eTest.robot
+#robot -d Results Tests/API-Tests/e2eTest.robot
 
 *** Variables ***
 ${validPageNumber}      1
@@ -46,7 +46,7 @@ Add to cart
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['result']}      item added or updated
 
 Check out with a payment method
-    ${resp}=            payment.POST payment         ${payment_method}
+    ${resp}=            payment.POST payment         ${payment_method}                          6
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
     ${json_data}        Set Variable                 ${resp.json()}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['message']}     Payment was successful
