@@ -40,13 +40,13 @@ Create cart ID
     Set Suite Variable  ${cart_id}
 
 Add to cart
-    ${resp}=            cart.POST add to cart         ${cart_id}                                ${product_id}           ${productQuantity}
-    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}     200
+    ${resp}=            cart.POST add to cart         ${cart_id}                                ${product_id}               ${productQuantity}
+    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
     ${json_data}        Set Variable                 ${resp.json()}
-    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['result']}  item added or updated
+    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['result']}      item added or updated
 
 Check out with a payment method
-    ${resp}=            payment.POST payment        ${payment_method}
-    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}     200
-    #${json_data}        Set Variable                 ${resp.json()}
-    #Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['result']}  item added or updated
+    ${resp}=            payment.POST payment         ${payment_method}
+    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
+    ${json_data}        Set Variable                 ${resp.json()}
+    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['message']}     Payment was successful
