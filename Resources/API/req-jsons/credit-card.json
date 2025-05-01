@@ -1,0 +1,9 @@
+{
+  "payment_method": "credit-card",
+  "payment_details": {
+    "credit_card_number": "",
+    "expiration_date": "",
+    "cvv": "",
+    "card_holder_name": ""
+  }
+}

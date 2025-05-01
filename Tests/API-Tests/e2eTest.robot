@@ -11,7 +11,7 @@ Suite Setup         commonAPI.Create API Session
 *** Variables ***
 ${validPageNumber}      1
 ${productQuantity}      1
-${payment_method}       buy-now-pay-later
+${payment_method}       credit-card
 
 *** Test Cases ***
 Log In with valid credentials
@@ -45,9 +45,16 @@ Add to cart
     ${json_data}        Set Variable                 ${resp.json()}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['result']}      item added or updated
 
-Check out with a buy-no-pay-later payment method
-    ${installments}=    Create Dictionary            monthly_installments=3
-    ${resp}=            payment.POST payment         ${payment_method}                          ${installments}
+#Check out with a buy-no-pay-later payment method
+#    ${installments}=    Create Dictionary            monthly_installments=3
+#    ${resp}=            payment.POST payment         ${payment_method}                          ${installments}
+#    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
+#    ${json_data}        Set Variable                 ${resp.json()}
+#    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['message']}     Payment was successful
+
+Check out with a credit-card payment method
+    ${creditCardDetails}=    Create Dictionary       credit_card_number=0000-0000-0000-0000     expiration_date=12/2028     cvv=123     card_holder_name=jack howe
+    ${resp}=            payment.POST payment         ${payment_method}                          ${creditCardDetails}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
     ${json_data}        Set Variable                 ${resp.json()}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['message']}     Payment was successful
