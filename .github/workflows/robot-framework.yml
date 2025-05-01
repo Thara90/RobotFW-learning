@@ -37,7 +37,7 @@ jobs:
 
     - name: Run Robot Framework tests
       run: |
-        robot -d Results Tests/UI-Tests/e2eTest.robot
+        robot -d Results Tests/API-Tests/e2eTest.robot
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
