@@ -10,18 +10,12 @@ Suite Setup         Suite Setup - Init Session And Auth
 #robot -d Results Tests/API-Tests/e2eTest.robot
 
 *** Variables ***
-${validPageNumber}      1
-${productQuantity}      1
-${payment_method}       buy-now-pay-later
+${validPageNumber}              1
+${productQuantity}              1
+#Acceptable values for payment_method : buy-now-pay-later, credit-card
+${payment_method}               credit-card
 
 *** Test Cases ***
-#Log In with valid credentials
-#    ${resp}=            authentication.POST authenticate   customer2@practicesoftwaretesting.com    welcome01
-#    Run Keyword And Continue On Failure              Should Be Equal As Strings               ${resp.status_code}                      200
-#    ${json_data}        Set Variable                 ${resp.json()}
-#    ${access_token}     Set Variable                 ${json_data['access_token']}
-#    Set Suite Variable     ${access_token}
-
 Select a product
     ${resp}=            products.GET products    ${validPageNumber}
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${resp.status_code}                       200
@@ -46,28 +40,28 @@ Add to cart
     ${json_data}        Set Variable                 ${resp.json()}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['result']}      item added or updated
 
-Check out with a buy-no-pay-later payment method
-    ${installments}=    Create Dictionary            monthly_installments=3
-    ${resp}=            payment.POST payment         ${payment_method}                          ${installments}
-    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
-    ${json_data}        Set Variable                 ${resp.json()}
-    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['message']}     Payment was successful
-
-#Check out with a credit-card payment method
-#    ${creditCardDetails}=    Create Dictionary       credit_card_number=0000-0000-0000-0000     expiration_date=12/2028     cvv=123     card_holder_name=jack howe
-#    ${resp}=            payment.POST payment         ${payment_method}                          ${creditCardDetails}
+#Check out with a buy-no-pay-later payment method
+#    ${paymentDetailsParams}=                         Create Payment Details Dictionary          ${payment_method}
+#    ${resp}=            payment.POST payment         ${payment_method}                          ${paymentDetailsParams}
 #    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
 #    ${json_data}        Set Variable                 ${resp.json()}
 #    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['message']}     Payment was successful
 
+Check out with a credit-card payment method
+    ${paymentDetailsParams}=                         Create Payment Details Dictionary          ${payment_method}
+    ${resp}=            payment.POST payment         ${payment_method}                          ${paymentDetailsParams}
+    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
+    ${json_data}        Set Variable                 ${resp.json()}
+    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['message']}     Payment was successful
+
 Generate invoice
-    #${installments}=    Create Dictionary            monthly_installments=3
-    ${resp}=            invoice.POST invoice         ${payment_method}                          ${cart_id}
+    ${paymentDetailsParams}=                         Create Payment Details Dictionary          ${payment_method}
+    ${resp}=            invoice.POST invoice         ${payment_method}                          ${cart_id}                  ${paymentDetailsParams}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         201
     ${json_data}        Set Variable                 ${resp.json()}
     ${invoice_number}   Set Variable                 ${json_data['invoice_number']}
     Set Suite Variable  ${invoice_number}
-    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['total']}      ${product_price}
+    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['total']}       ${product_price}
 
 
 
@@ -75,3 +69,12 @@ Generate invoice
 Suite Setup - Init Session And Auth
     commonAPI.Create API Session
     authentication.Authenticate And Set Token    customer2@practicesoftwaretesting.com    welcome01
+
+Create Payment Details Dictionary
+    [Arguments]    ${payment_type}
+    IF    "${payment_type}" == "buy-now-pay-later"
+        ${details}=    Create Dictionary    monthly_installments=3
+    ELSE IF    "${payment_type}" == "credit-card"
+        ${details}=    Create Dictionary    credit_card_number=0000-0000-0000-0000    expiration_date=12/2028    cvv=123    card_holder_name=jack howe
+    END
+    [Return]    ${details}

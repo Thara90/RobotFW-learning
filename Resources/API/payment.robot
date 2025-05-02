@@ -6,11 +6,11 @@ Library         Collections
 
 *** Keywords ***
 POST payment
-    [Arguments]         ${payment_method}                   ${param}
+    [Arguments]         ${payment_method}                   ${paymentDetailsParams}
     ${file_name}=       Set Variable                        ${payment_method}.json
     ${payload}=         Load Json From File                 Resources/API/req-jsons/${file_name}
     #Update the parameter dynamically
-    FOR    ${key}    ${value}    IN    &{param}
+    FOR    ${key}    ${value}    IN    &{paymentDetailsParams}
         Set To Dictionary    ${payload['payment_details']}    ${key}=${value}
     END
     Log                 ${payload}

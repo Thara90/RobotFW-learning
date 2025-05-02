@@ -4,9 +4,8 @@
   "billing_state": "Western",
   "billing_country": "Sri Lanka",
   "billing_postal_code": "10200",
-  "payment_method": "buy-now-pay-later",
+  "payment_method": "",
   "payment_details": {
-    "monthly_installments": "3"
   },
   "cart_id": ""
 }
