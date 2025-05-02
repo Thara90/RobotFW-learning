@@ -6,7 +6,7 @@ Resource            ../../Resources/API/cart.robot
 Resource            ../../Resources/API/payment.robot
 Resource            ../../Resources/API/invoice.robot
 
-Suite Setup         commonAPI.Create API Session
+Suite Setup         Suite Setup - Init Session And Auth
 #robot -d Results Tests/API-Tests/e2eTest.robot
 
 *** Variables ***
@@ -15,12 +15,12 @@ ${productQuantity}      1
 ${payment_method}       buy-now-pay-later
 
 *** Test Cases ***
-Log In with valid credentials
-    ${resp}=            authentication.POST authenticate   customer2@practicesoftwaretesting.com    welcome01
-    Run Keyword And Continue On Failure              Should Be Equal As Strings               ${resp.status_code}                      200
-    ${json_data}        Set Variable                 ${resp.json()}
-    ${access_token}     Set Variable                 ${json_data['access_token']}
-    Set Suite Variable     ${access_token}
+#Log In with valid credentials
+#    ${resp}=            authentication.POST authenticate   customer2@practicesoftwaretesting.com    welcome01
+#    Run Keyword And Continue On Failure              Should Be Equal As Strings               ${resp.status_code}                      200
+#    ${json_data}        Set Variable                 ${resp.json()}
+#    ${access_token}     Set Variable                 ${json_data['access_token']}
+#    Set Suite Variable     ${access_token}
 
 Select a product
     ${resp}=            products.GET products    ${validPageNumber}
@@ -63,8 +63,15 @@ Check out with a buy-no-pay-later payment method
 Generate invoice
     #${installments}=    Create Dictionary            monthly_installments=3
     ${resp}=            invoice.POST invoice         ${payment_method}                          ${cart_id}
-    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
+    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         201
     ${json_data}        Set Variable                 ${resp.json()}
     ${invoice_number}   Set Variable                 ${json_data['invoice_number']}
     Set Suite Variable  ${invoice_number}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['total']}      ${product_price}
+
+
+
+*** Keywords ***
+Suite Setup - Init Session And Auth
+    commonAPI.Create API Session
+    authentication.Authenticate And Set Token    customer2@practicesoftwaretesting.com    welcome01
