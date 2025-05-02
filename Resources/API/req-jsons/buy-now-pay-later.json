@@ -1,6 +1,5 @@
 {
   "payment_method": "buy-now-pay-later",
   "payment_details": {
-    "monthly_installments": ""
   }
 }

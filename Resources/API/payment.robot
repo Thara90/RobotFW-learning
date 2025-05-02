@@ -2,7 +2,7 @@
 Library         RequestsLibrary
 Library         JSONLibrary
 Library         OperatingSystem
-Library    Collections
+Library         Collections
 
 *** Keywords ***
 POST payment
