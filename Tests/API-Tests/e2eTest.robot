@@ -40,14 +40,7 @@ Add to cart
     ${json_data}        Set Variable                 ${resp.json()}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['result']}      item added or updated
 
-#Check out with a buy-no-pay-later payment method
-#    ${paymentDetailsParams}=                         Create Payment Details Dictionary          ${payment_method}
-#    ${resp}=            payment.POST payment         ${payment_method}                          ${paymentDetailsParams}
-#    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
-#    ${json_data}        Set Variable                 ${resp.json()}
-#    Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['message']}     Payment was successful
-
-Check out with a credit-card payment method
+Check out with a ${payment_method} payment method
     ${paymentDetailsParams}=                         Create Payment Details Dictionary          ${payment_method}
     ${resp}=            payment.POST payment         ${payment_method}                          ${paymentDetailsParams}
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${resp.status_code}         200
@@ -77,4 +70,4 @@ Create Payment Details Dictionary
     ELSE IF    "${payment_type}" == "credit-card"
         ${details}=    Create Dictionary    credit_card_number=0000-0000-0000-0000    expiration_date=12/2028    cvv=123    card_holder_name=jack howe
     END
-    [Return]    ${details}
+    RETURN    ${details}
