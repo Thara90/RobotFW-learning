@@ -1,9 +1,10 @@
 *** Settings ***
 Library                  RequestsLibrary
 Library                  Collections
+Resource                 ../../env.robot
 
 *** Variables ***
-${BASE_URL}              https://api.practicesoftwaretesting.com
+${BASE_URL}              ${API_URL}
 
 *** Keywords ***
 Create API Session

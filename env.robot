@@ -1,0 +1,12 @@
+*** Variables ***
+# URLS
+${UI_URL}       https://practicesoftwaretesting.com
+${API_URL}      https://api.practicesoftwaretesting.com
+
+# Logins
+${CUSTOMER_01_USERNAME}     customer@practicesoftwaretesting.com
+${CUSTOMER_01_PASSWORD}     welcome01
+${CUSTOMER_02_USERNAME}     customer2@practicesoftwaretesting.com
+${CUSTOMER_02_PASSWORD}     welcome01
+${ADMIN_USERNAME}           admin@practicesoftwaretesting.com
+${ADMIN_PASSWORD}           welcome01

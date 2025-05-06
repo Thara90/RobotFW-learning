@@ -7,6 +7,7 @@ Resource            ../../Resources/API/payment.robot
 Resource            ../../Resources/API/invoice.robot
 
 Suite Setup         Suite Setup - Init Session And Auth
+#Suite Setup          Run Keywords       keyword_1        keyword_2
 #robot -d Results Tests/API-Tests/e2eTest.robot
 
 *** Variables ***
