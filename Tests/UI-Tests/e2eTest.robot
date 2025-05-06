@@ -21,5 +21,6 @@ Check out flow verification
 *** Keywords ***
 Setup Browser And Login
     commonUI.Open the browser
+    loginPage.Click Sign In
     loginPage.Valid login   customer2@practicesoftwaretesting.com    welcome01    user
 

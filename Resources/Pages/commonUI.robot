@@ -1,9 +1,10 @@
 *** Settings ***
 Library             Browser     timeout=0:00:10
+Resource            ../../env.robot
 
 *** Variables ***
 ${browser}      chromium
-${url}          https://practicesoftwaretesting.com/auth/login
+${url}          ${UI_URL}
 
 *** Keywords ***
 
