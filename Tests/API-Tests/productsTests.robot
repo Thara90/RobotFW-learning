@@ -6,6 +6,7 @@ Suite Setup         commonAPI.Create API Session
  #robot -d Results Tests/API-Tests/productsTests.robot
 
 *** Variables ***
+@{product_names}=    Create List
 ${validPageNumber}      1
 ${invalidPageNumber}    1000
 
@@ -20,11 +21,11 @@ Get products with valid page id
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${json_data['last_page']}                 6
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${json_data['per_page']}                  9
     Run Keyword And Continue On Failure              Should Be Equal As Strings               ${json_data['total']}                     50
-    Log To Console    \nExtracted Product Names:
     FOR    ${item}    IN    @{json_data['data']}
            ${name}=   Set Variable    ${item['name']}
-    Log To Console    ${name}
+           Append To List    ${product_names}    ${name}
     END
+    Log     ${product_names}
 
 Get products with invalid page id
     ${resp}=        products.GET products         ${invalidPageNumber}
