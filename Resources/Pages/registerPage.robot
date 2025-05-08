@@ -1,6 +1,6 @@
 *** Settings ***
 Library             Browser     timeout=0:00:20
-Resource            helperBase.robot
+Resource            ../Helpers/helperBase.robot
 
 *** Variables ***
 ${linkRegister}         [data-test="register-link"]
