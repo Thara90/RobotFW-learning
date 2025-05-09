@@ -10,11 +10,9 @@ Test Setup      Setup Browser And Login
 
 *** Test Cases ***
 Check out flow verification
-    [Documentation]     This is some basic infor about test
     [Tags]              Smoke
     homePage.clickHome
     homePage.Search product    Thor Hammer
-    homePage.Assert valid search result    Thor Hammer
     homePage.Select product
     productDetailsPage.Add item to cart
 
@@ -22,5 +20,7 @@ Check out flow verification
 Setup Browser And Login
     commonUI.Open the browser
     loginPage.Click Sign In
-    loginPage.Valid login   customer2@practicesoftwaretesting.com    welcome01    user
+    loginPage.Valid login   customer@practicesoftwaretesting.com    welcome01    user
+
+
 

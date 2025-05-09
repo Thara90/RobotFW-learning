@@ -2,7 +2,6 @@
 Library         FakerLibrary    locale=en_US
 
 *** Keywords ***
-
 Make random registration data
     ${firstName}=           FakerLibrary.First Name
     ${lastName}=            FakerLibrary.Last Name
