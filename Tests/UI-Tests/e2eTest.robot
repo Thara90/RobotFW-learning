@@ -12,8 +12,10 @@ Test Setup      Setup Browser And Login
 Check out flow verification
     [Tags]              Smoke
     homePage.clickHome
-    homePage.Search product    Thor Hammer
-    homePage.Select product
+    homePage.Search product     Pliers
+    ${footerValue}=    homePage.Select product
+    #Set Suite Variable    ${footerValue}
+    productDetailsPage.Assert product price    ${footerValue}
     productDetailsPage.Add item to cart
 
 *** Keywords ***
