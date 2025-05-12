@@ -14,15 +14,15 @@ Check out flow verification
     homePage.clickHome
     homePage.Search product     Pliers
     ${footerValue}=    homePage.Select product
-    #Set Suite Variable    ${footerValue}
     productDetailsPage.Assert product price    ${footerValue}
     productDetailsPage.Add item to cart
+
 
 *** Keywords ***
 Setup Browser And Login
     commonUI.Open the browser
     loginPage.Click Sign In
-    loginPage.Valid login   customer@practicesoftwaretesting.com    welcome01    user
+    loginPage.Valid login   customer2@practicesoftwaretesting.com    welcome01    user
 
 
 
