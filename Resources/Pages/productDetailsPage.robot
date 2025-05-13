@@ -7,14 +7,16 @@ ${btnAddToCart}                 [data-test="add-to-cart"]
 ${addToCartMessage}             //div[@aria-label="Product added to shopping cart."]
 ${lblPrice}                     [data-test="unit-price"]
 ${btnCart}                      [data-test="nav-cart"]
-${btnProceedToCheckout}         [data-test="proceed-1"]
+${breadCrumb}                   xpath=//ul[@class='steps-4 steps-indicator']
 
 *** Keywords ***
 
 Assert product price
-    [Arguments]    ${price}
-    ${priceValue}=    Replace String Using Regexp                           ${price}                \\$              ${EMPTY}
-    Run Keyword And Continue On Failure         Get Text                    ${lblPrice}             should be       ${priceValue}
+    [Arguments]    ${expectedPrice}
+    #${priceValue}=    Replace String Using Regexp                           ${price}                \\$              ${EMPTY}
+    ${price_text}=    Get Text    ${lblPrice}
+    ${actualPrice}=  Convert To Number    ${price_text}
+    Run Keyword And Continue On Failure    Should Be Equal As Numbers    ${actualPrice}    ${expectedPrice}
 
 Add item to cart
     Click                                       ${btnAddToCart}
@@ -22,6 +24,6 @@ Add item to cart
 
 Load cart
     Click                                       ${btnCart}
-    Run Keyword And Continue On Failure         Wait For Elements State     ${btnProceedToCheckout} visible
+    Run Keyword And Continue On Failure         Wait For Elements State     ${breadCrumb}           visible
 
 

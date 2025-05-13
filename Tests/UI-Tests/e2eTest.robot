@@ -3,6 +3,7 @@ Documentation       This is basic info about whole test suite
 Resource            ../../Resources/Pages/loginPage.robot
 Resource            ../../Resources/Pages/homePage.robot
 Resource            ../../Resources/Pages/productDetailsPage.robot
+Resource            ../../Resources/Pages/checkoutPage.robot
 Resource            ../../Resources/Pages/commonUI.robot
 
 Test Setup      Setup Browser And Login
@@ -10,7 +11,7 @@ Test Setup      Setup Browser And Login
 Library    Collections
 
 *** Variables ***
-@{selected_products}    # Initializes an empty list
+@{selectedProductsPrices}    # Initializes an empty list
 
 *** Test Cases ***
 Check out flow verification
@@ -18,16 +19,17 @@ Check out flow verification
     homePage.clickHome
     homePage.Search product     Pliers
     ${productPrice}=    homePage.Select product
-    Append To List    ${selected_products}    ${productPrice}
-    productDetailsPage.Assert product price    ${selected_products}[0]
+    Append To List    ${selectedProductsPrices}    ${productPrice}
+    productDetailsPage.Assert product price    ${selectedProductsPrices}[0]
     productDetailsPage.Add item to cart
     homePage.clickHome
     homePage.Search product     Thor Hammer
     ${productPrice}=    homePage.Select product
-    Append To List    ${selected_products}    ${productPrice}
+    Append To List    ${selectedProductsPrices}    ${productPrice}
+    productDetailsPage.Assert product price    ${selectedProductsPrices}[1]
     productDetailsPage.Add item to cart
-    Log     ${selected_products}
     productDetailsPage.Load cart
+    checkoutPage.Assert total price    ${selectedProductsPrices}
 
 
 *** Keywords ***

@@ -1,6 +1,7 @@
 *** Settings ***
 Library             Browser     timeout=0:00:20
 Library    OperatingSystem
+Library    String
 
 *** Variables ***
 ${linkHome}                     [data-test="nav-home"]
@@ -42,6 +43,8 @@ Select product
                 Click                       xpath=(//h5[@data-test='product-name'])[${i}]
                 ${url}=    Get Url
                 Run Keyword And Continue On Failure     Should Match Regexp         ${url}                      .*/product/[A-Z0-9]+$
+                ${footerValue}=    Replace String   ${footerValue}    $    ${EMPTY}
+                ${footerValue}=    Convert To Number    ${footerValue}
                 RETURN      ${footerValue}
                 BREAK
            ELSE
