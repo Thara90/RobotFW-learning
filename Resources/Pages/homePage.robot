@@ -41,17 +41,17 @@ Select product
            ${footerValue}                   Get Text                    xpath=(//h5[@data-test='product-name'])[${i}]/parent::div/following-sibling::div/span[1]
            IF   $footerValue != "Out of stock"
                 Click                       xpath=(//h5[@data-test='product-name'])[${i}]
-                ${url}=    Get Url
+                ${url}=                     Get Url
                 Run Keyword And Continue On Failure     Should Match Regexp         ${url}                      .*/product/[A-Z0-9]+$
-                ${footerValue}=    Replace String   ${footerValue}    $    ${EMPTY}
-                ${footerValue}=    Convert To Number    ${footerValue}
+                ${footerValue}=             Replace String   ${footerValue}    $    ${EMPTY}
+                ${footerValue}=             Convert To Number    ${footerValue}
                 RETURN      ${footerValue}
                 BREAK
            ELSE
                 ${productName}              Get Text                    xpath=(//h5[@data-test='product-name'])[${i}]
                 Log                         Out of Stock: ${productName}
            END
-           Fail    All products are out of stock
+                Fail                        All products are out of stock
     END
 
 

@@ -7,7 +7,7 @@ Resource            ../../Resources/Pages/checkoutPage.robot
 Resource            ../../Resources/Pages/commonUI.robot
 
 Test Setup      Setup Browser And Login
- #robot -d Results Tests/UI-Tests/e2eTest.robot
+#robot -d Results Tests/UI-Tests/e2eTest.robot
 Library    Collections
 
 *** Variables ***
@@ -16,7 +16,7 @@ Library    Collections
 *** Test Cases ***
 Check out flow verification
     [Tags]              Smoke
-    homePage.clickHome
+    homePage.click Home
     homePage.Search product     Pliers
     ${productPrice}=    homePage.Select product
     Append To List    ${selectedProductsPrices}    ${productPrice}
@@ -30,6 +30,7 @@ Check out flow verification
     productDetailsPage.Add item to cart
     productDetailsPage.Load cart
     checkoutPage.Assert total price    ${selectedProductsPrices}
+    checkoutPage.Click proceed to checkout step 1
 
 
 *** Keywords ***
