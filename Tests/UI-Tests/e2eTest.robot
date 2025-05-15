@@ -31,7 +31,8 @@ Check out flow verification
     productDetailsPage.Load cart
     checkoutPage.Assert total price    ${selectedProductsPrices}
     checkoutPage.Click proceed to checkout step 1
-
+    checkoutPage.Click proceed to checkout step 2
+    checkoutPage.Fill billing address
 
 *** Keywords ***
 Setup Browser And Login
