@@ -1,6 +1,7 @@
 *** Settings ***
 Library             Browser     timeout=0:00:20
 Library             String
+Library    RequestsLibrary
 Resource            ../Helpers/helperBase.robot
 
 *** Variables ***
@@ -17,6 +18,12 @@ ${txtCity}                          [data-test="city"]
 ${txtState}                         [data-test="state"]
 ${txtCountry}                       [data-test="country"]
 ${txtpostalCode}                    [data-test="postal_code"]
+${ddPaymentMethod}                  id=payment-method
+${txtCCNumber}                      [data-test="credit_card_number"]
+${txtExpirationDate}                [data-test="expiration_date"]
+${txtCVV}                           [data-test="cvv"]
+${txtCardHolderName}                [data-test="card_holder_name"]
+${ddInstallements}                  [data-test="monthly_installments"]
 
 *** Keywords ***
 
@@ -59,3 +66,19 @@ Fill billing address
     Fill Text           ${txtpostalCode}        ${postalCode}
     Click               ${btnProceedToCheckout_3}
     Run Keyword And Continue On Failure         Wait For Elements State     ${lblBPayment}     visible
+
+Fill payment details
+    [Arguments]    ${paymentMethod}    ${paymentDetailsParams}
+    IF    $payment_method == "credit-card"
+            Select Options By       ${ddPaymentMethod}          value       ${paymentMethod}
+            Fill Text               ${txtCCNumber}              ${paymentDetailsParams['credit_card_number']}
+            Fill Text               ${txtExpirationDate}        ${paymentDetailsParams['expiration_date']}
+            Fill Text               ${txtCVV}                   ${paymentDetailsParams['cvv']}
+            Fill Text               ${txtCardHolderName}        ${paymentDetailsParams['cvv']}
+    ELSE IF    $payment_method == "buy-now-pay-later"
+            Select Options By       ${ddPaymentMethod}          value       ${paymentMethod}
+            Select Options By       ${ddInstallements}          value       ${paymentDetailsParams['monthly_installments']}
+    ELSE
+        Log                         Not a valid payment methos
+    END
+

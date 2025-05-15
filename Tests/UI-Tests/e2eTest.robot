@@ -33,12 +33,23 @@ Check out flow verification
     checkoutPage.Click proceed to checkout step 1
     checkoutPage.Click proceed to checkout step 2
     checkoutPage.Fill billing address
+    ${paymentDetailsParams}=                         Create Payment Details         buy-now-pay-later
+    checkoutPage.Fill payment details   buy-now-pay-later       ${paymentDetailsParams}
 
 *** Keywords ***
 Setup Browser And Login
     commonUI.Open the browser
     loginPage.Click Sign In
     loginPage.Valid login   customer2@practicesoftwaretesting.com    welcome01    user
+
+Create Payment Details
+    [Arguments]    ${paymentType}
+    IF    "${paymentType}" == "buy-now-pay-later"
+        ${details}=    Create Dictionary    monthly_installments=3
+    ELSE IF    "${paymentType}" == "credit-card"
+        ${details}=    Create Dictionary    credit_card_number=0000-0000-0000-0000    expiration_date=12/2028    cvv=123    card_holder_name=jack howe
+    END
+    RETURN    ${details}
 
 
 
