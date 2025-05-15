@@ -11,7 +11,7 @@ Test Setup      Setup Browser And Login
 Library    Collections
 
 *** Variables ***
-@{selectedProductsPrices}    # Initializes an empty list
+@{selectedProductsPrices}
 
 *** Test Cases ***
 Check out flow verification
@@ -47,9 +47,9 @@ Setup Browser And Login
 Create Payment Details
     [Arguments]    ${paymentType}
     IF    "${paymentType}" == "buy-now-pay-later"
-        ${details}=    Create Dictionary    monthly_installments=3
+            ${details}=    Create Dictionary    monthly_installments=3
     ELSE IF    "${paymentType}" == "credit-card"
-        ${details}=    Create Dictionary    credit_card_number=0000-0000-0000-0000    expiration_date=12/2028    cvv=123    card_holder_name=jack howe
+            ${details}=    Create Dictionary    credit_card_number=0000-0000-0000-0000    expiration_date=12/2028    cvv=123    card_holder_name=jack howe
     END
     RETURN    ${details}
 
