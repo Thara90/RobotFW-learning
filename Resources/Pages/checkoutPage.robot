@@ -24,6 +24,9 @@ ${txtExpirationDate}                [data-test="expiration_date"]
 ${txtCVV}                           [data-test="cvv"]
 ${txtCardHolderName}                [data-test="card_holder_name"]
 ${ddInstallements}                  [data-test="monthly_installments"]
+${btnConfirm}                       [data-test="finish"]
+${msgSuccessPayment}                [data-test="payment-success-message"]
+${lblInvoiceNumber}                 xpath=//div[@id='order-confirmation']/span
 
 *** Keywords ***
 
@@ -81,4 +84,15 @@ Fill payment details
     ELSE
         Log                         Not a valid payment methos
     END
+
+Confirm payment
+    Click               ${btnConfirm}
+    Run Keyword And Continue On Failure         Wait For Elements State     ${msgSuccessPayment}      visible
+    Promise To          Wait For Response                   matcher=**/invoices
+    Click               ${btnConfirm}
+    Wait For All Promises
+
+Get invoice number
+    ${invoiceNumber}                        Get Text                        ${lblInvoiceNumber}
+    RETURN      ${invoiceNumber}
 

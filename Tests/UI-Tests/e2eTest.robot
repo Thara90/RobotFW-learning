@@ -35,6 +35,8 @@ Check out flow verification
     checkoutPage.Fill billing address
     ${paymentDetailsParams}=                         Create Payment Details         buy-now-pay-later
     checkoutPage.Fill payment details   buy-now-pay-later       ${paymentDetailsParams}
+    checkoutPage.Confirm payment
+    checkoutPage.Get invoice number
 
 *** Keywords ***
 Setup Browser And Login
