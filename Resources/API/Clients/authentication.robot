@@ -1,5 +1,5 @@
 *** Settings ***
-Library         RequestsLibrary
+Resource            ../base.robot
 
 *** Keywords ***
 POST authenticate

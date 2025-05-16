@@ -1,10 +1,10 @@
 *** Settings ***
-Resource            ../../Resources/API/commonAPI.robot
-Resource            ../../Resources/API/authentication.robot
-Resource            ../../Resources/API/products.robot
-Resource            ../../Resources/API/cart.robot
-Resource            ../../Resources/API/payment.robot
-Resource            ../../Resources/API/invoice.robot
+Resource            ../../Resources/API/base.robot
+Resource            ../../Resources/API/Clients/authentication.robot
+Resource            ../../Resources/API/Clients/products.robot
+Resource            ../../Resources/API/Clients/cart.robot
+Resource            ../../Resources/API/Clients/payment.robot
+Resource            ../../Resources/API/Clients/invoice.robot
 
 Suite Setup         Suite Setup - Init Session And Auth
 #Suite Setup          Run Keywords       keyword_1        keyword_2
@@ -58,10 +58,9 @@ Generate invoice
     Run Keyword And Continue On Failure              Should Be Equal As Strings                 ${json_data['total']}       ${product_price}
 
 
-
 *** Keywords ***
 Suite Setup - Init Session And Auth
-    commonAPI.Create API Session
+    base.Create API Session
     authentication.Authenticate And Set Token    customer2@practicesoftwaretesting.com    welcome01
 
 Create Payment Details Dictionary

@@ -1,8 +1,5 @@
 *** Settings ***
-Library         RequestsLibrary
-Library         JSONLibrary
-Library         OperatingSystem
-Library         Collections
+Resource            ../base.robot
 
 *** Keywords ***
 POST payment
