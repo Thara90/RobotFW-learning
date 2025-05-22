@@ -1,8 +1,8 @@
 *** Settings ***
-Resource            ../../Resources/API/search.robot
-Resource            ../../Resources/API/commonAPI.robot
+Resource            ../../Resources/API/base.robot
+Resource            ../../Resources/API/Clients/search.robot
 
-Suite Setup         commonAPI.Create API Session
+Suite Setup         base.Create API Session
  #robot -d Results Tests/API-Tests/searchTests.robot
 
 *** Variables ***

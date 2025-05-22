@@ -1,8 +1,8 @@
 *** Settings ***
-Resource            ../../Resources/API/products.robot
-Resource            ../../Resources/API/commonAPI.robot
+Resource            ../../Resources/API/base.robot
+Resource            ../../Resources/API/Clients/products.robot
 
-Suite Setup         commonAPI.Create API Session
+Suite Setup         base.Create API Session
  #robot -d Results Tests/API-Tests/productsTests.robot
 
 *** Variables ***
