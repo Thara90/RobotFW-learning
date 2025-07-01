@@ -5,7 +5,7 @@ Resource            ../../Resources/Pages/commonUI.robot
 
 Test Setup         commonUI.Open the browser
 Test Teardown      Close Browser    ALL
-#robot -d Results Tests/UI-Tests/loginTest.robot
+#robot -d Results Tests/UI-Tests/testScript.robot
 
 *** Test Cases ***
 Login with valid credentials
